@@ -24,8 +24,8 @@ class Category(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=100, null=False)
     description = models.TextField(null=False)
-    date = models.DateField(auto_now_add=True, blank=False, null=False)
-    time = models.DateTimeField(auto_now_add=True, blank=False, null=False)
+    date = models.DateField(blank=False, null=False)
+    time = models.DateTimeField(blank=False, null=False)
     location = models.CharField(max_length=100, null=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="category")
     participant = models.ManyToManyField(Participant, related_name="participant")
