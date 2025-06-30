@@ -2,8 +2,9 @@ from django.db import models
 
 # Create your models here.
 class Participant(models.Model):
-    name = models.CharField(max_length=10, null=False)
-    email = models.EmailField(null=False)
+    participant_name = models.CharField(max_length=100, null=False)
+    participant_email = models.EmailField(null=False)
+    registered_event = models.ManyToManyField("Event", related_name="event")
 
 class Category(models.Model):
     NOT_MENTIONED = "SELECT CATEGORY"
@@ -28,6 +29,5 @@ class Event(models.Model):
     time = models.CharField(max_length=50, blank=False, null=False)
     location = models.CharField(max_length=100, null=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="category")
-    participant = models.ManyToManyField(Participant, related_name="participant")
 
 

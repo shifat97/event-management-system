@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from events.forms import EventModelForm, CategoryModelForm
+from events.forms import EventModelForm, CategoryModelForm, ParticipantModelForm
 from django.contrib import messages
 
 # Create your views here.
@@ -38,8 +38,22 @@ def create_event(request):
 def update_event():
     pass
 
-def create_perticipant():
-    pass
+# Create Perticipant
+def create_perticipant(request):
+    if request.method == 'POST':
+        participant_model_form = ParticipantModelForm(request.POST)
+
+        if participant_model_form.is_valid():
+            participant_model_form.save();
+            messages.success(request, 'Registration Successful')
+            
+            return redirect('create-participant')
+    else:
+        participant_model_form = ParticipantModelForm()
+    
+    return render(request, 'pages/create-participant.html', {
+        'participant_form': participant_model_form
+    })
 
 def update_perticipant():
     pass

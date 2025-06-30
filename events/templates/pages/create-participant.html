@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+
+{% block templates %}
+<div>
+  {% comment %} Messages container {% endcomment %}
+  <div>
+    {% if messages %}
+      {% for message in messages %}
+        <p class="
+        m-4 p-4 rounded-md text-center font-bold text-xl text-white
+        {% if message.tags == 'success' %}
+          bg-green-400
+        {% elif message.tags == 'error' %}
+          bg-red-400 
+        {% endif %}
+        ">
+        {{ message }}
+        </p>
+      {% endfor %}
+    {% endif %}
+  </div>
+  {% comment %} Form container {% endcomment %}
+   <div>
+     <h1 class="text-2xl font-semibold text-center leading-relaxed my-12">REGISTER AS A PARTICIPANT</h1>
+     <form method="POST" class="w-1/2 mx-auto flex flex-col gap-4 ">
+      {% csrf_token %}
+      <div class="w-full flex flex-col gap-2">
+        <p class="font-medium leading-relaxed">Your Full Name</p>
+        {{ participant_form.participant_name }}
+      </div>
+      <div class="flex flex-col gap-2">
+        <p class="font-medium leading-relaxed">Email Address</p>
+        {{ participant_form.participant_email }}
+      </div>
+      <button
+          class="bg-green-400 hover:bg-green-700 text-white px-4 py-4 rounded-md mt-2"
+          type="submit"
+        >
+          Register
+        </button>
+    </form>
+   </div>
+</div>
+{% endblock templates %}

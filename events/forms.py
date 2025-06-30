@@ -1,5 +1,5 @@
 from django import forms
-from events.models import Event, Category
+from events.models import Event, Category, Participant
 
 class EventModelForm(forms.ModelForm):
     class Meta:
@@ -54,4 +54,31 @@ class CategoryModelForm(forms.ModelForm):
             'category_name': forms.Select(attrs={
                 'class': 'bg-[#E6F0F0] px-4 py-4 rounded-md border-r-[16px] border-[#E6F0F0]',
             }),
+        }
+
+class ParticipantModelForm(forms.ModelForm):
+    class Meta:
+        model = Participant
+        fields = ['participant_name', 'participant_email']
+        labels = {
+            'participant_name': 'Your Full Name',
+            'participant_email': 'Your Email Address',
+        }
+        widgets = {
+            'participant_name': forms.TextInput(
+                attrs = {
+                    'class': 'px-4 py-4 rounded-md w-full bg-[#E6F0F0] focus:outline-none focus:border-none',
+                    'placeholder': 'Describe about the event',
+                    'type': 'text',
+                    'placeholder': 'e.g. John Doe'
+                }
+            ),
+            'participant_email': forms.EmailInput(
+                attrs = {
+                    'class': 'px-4 py-4 rounded-md w-full bg-[#E6F0F0] focus:outline-none focus:border-none',
+                    'placeholder': 'Describe about the event',
+                    'type': 'email',
+                    'placeholder': 'e.g name@gmail.com'
+                }
+            )
         }
