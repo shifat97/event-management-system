@@ -108,6 +108,9 @@ def update_event(request, id):
 
 def view_events(request):
     type = request.GET.get('type', '')
+
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
     
     BASE_QUERY = Event.objects.select_related('category').prefetch_related('registered_event').annotate(total_participants=Count('registered_event'))
 
@@ -119,6 +122,9 @@ def view_events(request):
         events = BASE_QUERY.filter(category__category_name='PAST')
     else:
         events = BASE_QUERY.all()
+
+    if start_date and end_date:
+        events = BASE_QUERY.filter(date__gte=start_date, date__lte=end_date)
 
     return render(request, 'pages/view-all-events.html', context={
         'events': events,

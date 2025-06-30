@@ -5,14 +5,29 @@
   <section>
     {% comment %} Event banner design {% endcomment %}
     {% comment %} Filtering Options {% endcomment %}
-    <form action="{% url 'view-events' %}">
-      <select class="bg-black/5 px-4 py-4 rounded-md border-r-8 border-transparent mb-8" name="type" id="event-filter" onchange="this.form.submit()">
-        <option value="all" {% if request.GET.type == "all" %}selected{% endif %}>All</option>
-        <option value="today" {% if request.GET.type == "today" %}selected{% endif %}>Today</option>
-        <option value="upcoming" {% if request.GET.type == "upcoming" %}selected{% endif %}>Upcoming</option>
-        <option value="past" {% if request.GET.type == "past" %}selected{% endif %}>Past</option>
-      </select>      
-    </form>
+    <div class="mb-8">
+      <p class="inline mr-4 font-bold">SORT BY</p>
+
+      <form class="inline" action="{% url 'view-events' %}">
+        <select class="text-sm bg-black/5 px-4 py-4 text-md rounded-md border-r-8 border-transparent" name="type" id="event-filter" onchange="this.form.submit()">
+          <option value="all" {% if request.GET.type == "all" %}selected{% endif %}>All</option>
+          <option value="today" {% if request.GET.type == "today" %}selected{% endif %}>Today</option>
+          <option value="upcoming" {% if request.GET.type == "upcoming" %}selected{% endif %}>Upcoming</option>
+          <option value="past" {% if request.GET.type == "past" %}selected{% endif %}>Past</option>
+        </select>
+      </form>
+      
+      <p class="inline mx-4 font-bold">OR</p>
+
+      <form class="inline" action="{% url 'view-events' %}">
+        <!-- Date range filters -->
+        <input class="bg-black/5 px-4 py-4 rounded-md text-sm" type="date" name="start_date" value="{{ request.GET.start_date }}" class="px-4 py-2 rounded-md border mb-4" required />
+        <input class="bg-black/5 px-4 py-4 rounded-md text-sm" type="date" name="end_date" value="{{ request.GET.end_date }}" class="px-4 py-2 rounded-md border mb-4" required />
+
+        <button type="submit" class="px-6 py-4 text-sm font-bold bg-blue-400 hover:bg-blue-600 text-white rounded-md ml-4">Filter</button>
+      </form>
+    </div>
+
     {% comment %} Events Card {% endcomment %}
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12">
       {% for event in events %}
