@@ -20,7 +20,13 @@
               <div class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/60 to-transparent"></div>
             </div>
             <div class="mt-8">
-              <h1 class="text-xl font-medium text-center">{{ event.name|slice:":20" }}..</h1>
+              <h1 class="text-xl font-medium text-center">
+                {% if event.name|length > 20 %}
+                  {{ event.name|slice:":20" }}..
+                {% else %}
+                  {{ event.name }}
+                {% endif %}
+              </h1>
               <p class="flex gap-4 items-center justify-center mt-2">
                 <span><img src="{% static 'images/location.png' %}" alt=""></span>
                 <span class="text-[12px] text-[#222222] font-semibold">{{ event.location }}</span>

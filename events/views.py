@@ -24,8 +24,6 @@ def create_event(request):
 
             messages.success(request, 'Event created successfully')
 
-            return redirect('create-event')
-
         else:
             messages.error(request, 'Something went wrong! Check your inputs')
 
