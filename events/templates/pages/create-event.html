@@ -6,7 +6,12 @@
     <div>
       {% if messages %}
         {% for message in messages %}
-          <p class="bg-green-400 text-white m-4 p-4 rounded-md text-center font-bold text-xl">{{ message }}</p>
+          <p class="
+          {% if message.tags == 'success' %}
+            bg-green-400
+          {% else %}
+            bg-red-400
+          {% endif %} text-white m-4 p-4 rounded-md text-center font-bold text-xl">{{ message }}</p>
         {% endfor %}
       {% endif %}
     </div>

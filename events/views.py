@@ -26,6 +26,9 @@ def create_event(request):
 
             return redirect('create-event')
 
+        else:
+            messages.error(request, 'Something went wrong! Check your inputs')
+
     else:
         event_model_form = EventModelForm(prefix="event")
         category_model_form = CategoryModelForm(prefix="category")
