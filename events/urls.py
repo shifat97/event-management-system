@@ -1,5 +1,5 @@
 from django.urls import path
-from events.views import create_event, update_event, view_events, view_event_details, delete_event, create_participant, view_participant, update_participant
+from events.views import create_event, update_event, view_events, view_event_details, delete_event, create_participant, view_participant, update_participant, delete_participant
 from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
@@ -11,4 +11,5 @@ urlpatterns = [
     path('register-participant/event-id=<int:id>', create_participant, name='register-participant'),
     path('view-participants/', view_participant, name='view-participants'),
     path('update-participant/<int:id>', update_participant, name='update-participant'),
+    path('delete-participant/<int:id>', delete_participant, name='delete-participant'),
 ] + debug_toolbar_urls()

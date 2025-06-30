@@ -56,7 +56,7 @@
                   <a href="{% url "update-participant" p.id %}" class="bg-green-400 cursor-pointer p-2 rounded-full">
                     <img class="w-[20px] h-[20px]" src="{% static "images/edit.png" %}" alt="">
                   </a>
-                  <form method="POST">
+                  <form method="POST" action="{% url "delete-participant" p.id %}">
                     {% csrf_token %}
                     <button type="submit" class="bg-red-400 rounded-full cursor-pointer p-2">
                       <img class="w-[20px] h-[20px]" src="{% static "images/delete.png" %}" alt="">

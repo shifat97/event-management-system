@@ -83,7 +83,6 @@ def delete_event(request, id):
         event = Event.objects.get(id=id)
         event.delete()
         
-        messages.success(request, 'Event deleted successfully')
         return redirect('view-events')
     else:
         return redirect('view-events')
@@ -106,16 +105,27 @@ def view_event_details(request, id):
     })
 
 # Create Perticipant
+from django.db.models import Q
+
 def create_participant(request, id):
     event = Event.objects.get(id=id)
 
     if request.method == 'POST':
         participant_form = ParticipantModelForm(request.POST)
         if participant_form.is_valid():
-            participant = participant_form.save() 
-            participant.registered_event.add(event) 
+            email = participant_form.cleaned_data['participant_email']
+            name = participant_form.cleaned_data['participant_name']
 
-            messages.success(request, 'Registration Successful!')
+            participant, created = Participant.objects.get_or_create(
+                participant_email=email,
+                participant_name=name,
+            )
+
+            if event in participant.registered_event.all():
+                messages.warning(request, 'You are already registered for this event.')
+            else:
+                participant.registered_event.add(event)
+                messages.success(request, 'Registration Successful!')
     else:
         participant_form = ParticipantModelForm()
 
@@ -123,6 +133,7 @@ def create_participant(request, id):
         'participant_form': participant_form,
         'event': event,
     })
+
 
 def view_participant(request):
     participants = Participant.objects.prefetch_related('registered_event').all()
@@ -146,3 +157,13 @@ def update_participant(request, id):
     return render(request, 'pages/update-participant.html', {
         'participant_form': participant_form
     })
+
+def delete_participant(request, id):
+    if request.method == 'POST':
+        participant = Participant.objects.get(id=id)
+        participant.delete()
+        
+        return redirect('view-participants')
+    else:
+        return redirect('view-participants')
+

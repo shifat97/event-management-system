@@ -12,6 +12,8 @@
           bg-green-400
         {% elif message.tags == 'error' %}
           bg-red-400 
+        {% elif message.tags == 'warning' %}
+          bg-orange-400
         {% endif %}
         ">
         {{ message }}
