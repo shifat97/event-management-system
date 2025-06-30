@@ -37,9 +37,12 @@
           <a href={% url "update-event" event.id %} class="bg-green-400 flex justify-center p-2 rounded-md cursor-pointer">
             Update
           </a>
-          <a class="bg-red-400 flex justify-center p-2 rounded-md">
-            Delete
-          </a>
+          <form method="POST" action="{% url "delete-event" event.id %}">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-400 flex justify-center p-2 rounded-md cursor-pointer">
+              Delete
+            </button>
+          </form>
         </span>
       </div>
       {% endfor %}

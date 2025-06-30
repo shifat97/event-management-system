@@ -78,6 +78,16 @@ def view_events(request):
         'events': events,
     })
 
+def delete_event(request, id):
+    if request.method == 'POST':
+        event = Event.objects.get(id=id)
+        event.delete()
+        
+        messages.success(request, 'Event deleted successfully')
+        return redirect('view-events')
+    else:
+        return redirect('view-events')
+
 # Event details
 def view_event_details(request, id):
     event = Event.objects.get(id=id)
