@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block templates %}
+  <section>
+    {% comment %} Event banner design {% endcomment %}
+    {% comment %} Filtering Options {% endcomment %}
+    {% comment %} Events Card {% endcomment %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      {% for event in events %}
+      <div>
+          <img class="mx-auto" src="{% static "images/event_1.jpg" %}" alt="">
+          <div class="mt-8">
+            <h1 class="text-xl font-medium text-center">{{ event.name|slice:":20" }}..</h1>
+            <p class="flex gap-4 items-center justify-center mt-4">
+              <span><img src="{% static 'images/location.png' %}" alt=""></span>
+              <span class="text-[12px] text-[#222222] font-semibold">{{ event.location }}</span>
+            </p>
+          </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock templates %}
+

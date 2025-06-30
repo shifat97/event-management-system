@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from events.forms import EventModelForm, CategoryModelForm, ParticipantModelForm
+from events.models import Event
 from django.contrib import messages
 
 # Create your views here.
@@ -37,6 +38,13 @@ def create_event(request):
 
 def update_event():
     pass
+
+def view_events(request):
+    events = Event.objects.prefetch_related().all()
+
+    return render(request, 'pages/view-all-events.html', context={
+        'events': events,
+    })
 
 # Create Perticipant
 def create_perticipant(request):
