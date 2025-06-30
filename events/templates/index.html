@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/output.css' %}" />
   </head>
   <body>
-    <header>
-      <h1 class="">Header</h1>
-    </header>
+    {% include "header.html" %}
     <main class="max-w-[1170px] mx-auto p-6">
       {% block templates %}{% endblock templates %}
     </main>

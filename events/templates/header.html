@@ -1,0 +1,27 @@
+{% load static %}
+
+<header class="flex justify-between items-center px-6 py-4">
+ {% comment %} Logo {% endcomment %}
+  <div>
+    <img src="{% static "images/logo.png" %}" alt="">
+  </div>
+ {% comment %} Nav {% endcomment %}
+  <nav class="flex items-center gap-6">
+    <ul class="flex items-center gap-6">
+      <a href="{% url "home" %}">
+        <li class="font-bold text-[15px] p-2 hover:text-red-500 rounded-sm cursor-pointer">Home</li>
+      </a>
+      <li class="font-bold text-[15px] p-2 hover:text-red-500 rounded-sm cursor-pointer">Dashboard</li>
+      <a href="{% url "view-events" %}">
+        <li class="font-bold text-[15px] p-2 hover:text-red-500 rounded-sm cursor-pointer">All Events</li>
+      </a>
+      <a href="{% url 'create-event' %}">
+        <li class="font-bold text-[15px] p-2 hover:text-red-500 rounded-sm cursor-pointer">Create Event</li>
+      </a>
+      <li class="font-bold text-[15px] p-2 hover:text-red-500 rounded-sm cursor-pointer">Contact</li>
+    </ul>
+    <form class="">
+      <input class="w-[400px] bg-black/5 p-4 rounded-md focus:border-none focus:outline-none" type="text" name="search" id="search" placeholder="Enter event name or type">
+    </form>
+  </nav>
+</header>
