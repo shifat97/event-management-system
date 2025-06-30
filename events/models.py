@@ -7,19 +7,17 @@ class Participant(models.Model):
     registered_event = models.ManyToManyField("Event", related_name="registered_event")
 
 class Category(models.Model):
-    NOT_MENTIONED = "SELECT CATEGORY"
-    SPORTS = "SPORTS"
-    FESTIVAL = "FESTIVAL"
-    SEMINAR = "SEMINAR"
+    TODAY = "TODAY"
+    UPCOMING = "UPCOMING"
+    PAST = "PAST"
 
     EVENT_CATEGORY = (
-        (NOT_MENTIONED, "Select Category"),
-        (SPORTS, "Sports"),
-        (FESTIVAL, "Festival"),
-        (SEMINAR, 'Seminar')
+        (TODAY, "Today's Event"),
+        (UPCOMING, "Upcoming Event"),
+        (PAST, 'Past Event')
     )
 
-    category_name = models.CharField(max_length=50, choices=EVENT_CATEGORY, null=False, default=NOT_MENTIONED)
+    category_name = models.CharField(max_length=50, choices=EVENT_CATEGORY, null=False, default=TODAY)
     category_description = models.TextField()
 
 class Event(models.Model):

@@ -1,43 +1,64 @@
+# generate_fake_data.py
+
 from events.models import Event, Category, Participant
 from faker import Faker
 import random
+from datetime import datetime, timedelta
 
-def generate_fake_data():
-    fake = Faker()
+fake = Faker()
 
-    # Create categories
-    categories = []
-    category_names = ["SPORTS", "FESTIVAL", "SEMINAR"]
-    for name in category_names:
-        category, _ = Category.objects.get_or_create(
-            category_name=name,
-            defaults={"category_description": fake.text()}
-        )
-        categories.append(category)
+def generate_description(word_count=200):
+    return " ".join(fake.paragraphs(nb=word_count // 5))
 
-    # Create fake events
+def create_categories():
+    categories = {
+        "TODAY": Category.objects.create(category_name="TODAY", category_description=fake.text(100)),
+        "UPCOMING": Category.objects.create(category_name="UPCOMING", category_description=fake.text(100)),
+        "PAST": Category.objects.create(category_name="PAST", category_description=fake.text(100)),
+    }
+    return categories
+
+def create_events(categories, num_events=10):
     events = []
-    for _ in range(20):
-        # Forcefully format to 12-hour time with AM/PM
-        dt = fake.date_time()
-        time_string = dt.strftime("%I:%M %p")  # e.g., 08:00 AM, not 20:00
+    for i in range(num_events):
+        if i % 3 == 0:
+            date = datetime.today().date()
+            category = categories["TODAY"]
+        elif i % 3 == 1:
+            date = datetime.today().date() + timedelta(days=random.randint(1, 30))
+            category = categories["UPCOMING"]
+        else:
+            date = datetime.today().date() - timedelta(days=random.randint(1, 30))
+            category = categories["PAST"]
 
         event = Event.objects.create(
             name=fake.catch_phrase(),
-            description=fake.paragraph(),
-            date=fake.date_between(start_date="today", end_date="+30d"),
-            time=time_string,  # ✅ This is NOT international format
-            location=fake.city(),
-            category=random.choice(categories),
+            description=generate_description(),
+            date=date,
+            time=fake.time(pattern="%I:%M %p"),  # 08:00 AM format
+            location=fake.address(),
+            category=category,
         )
         events.append(event)
+    return events
 
-    # Create participants
-    for _ in range(20):
+def create_participants(events, num_participants=15):
+    for _ in range(num_participants):
         participant = Participant.objects.create(
             participant_name=fake.name(),
-            participant_email=fake.email(),
+            participant_email=fake.unique.email(),
         )
-        participant.registered_event.set(random.sample(events, k=random.randint(1, 3)))
+        # Each participant is registered in 1 to 3 events randomly
+        selected_events = random.sample(events, random.randint(1, 3))
+        participant.registered_event.add(*selected_events)
 
-    print("✅ 20 fake events and participants created with time in 12-hour format (AM/PM).")
+def run():
+    print("Generating fake data...")
+    Category.objects.all().delete()
+    Event.objects.all().delete()
+    Participant.objects.all().delete()
+
+    categories = create_categories()
+    events = create_events(categories)
+    create_participants(events)
+    print("Data generation complete.")

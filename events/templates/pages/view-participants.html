@@ -35,18 +35,18 @@
               </td>
               <td class="px-6 py-4">
                 {% for event in p.registered_event.all %}
-                    <li>
-                      {{ event.name }}
-                    </li>
+                    <p>
+                      - {{ event.name }}
+                    </p>
                 {% empty %}
                     No events registered
                 {% endfor %}
               </td>
               <td class="px-6 py-4">
                 {% for event in p.registered_event.all %}
-                    <li>
-                      {{ event.date }}, {{ event.time }}
-                    </li>
+                    <p>
+                      - {{ event.date }}, {{ event.time }}
+                    </p>
                 {% empty %}
                     No events registered
                 {% endfor %}

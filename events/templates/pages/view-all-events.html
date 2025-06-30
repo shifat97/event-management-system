@@ -14,7 +14,7 @@
               <span class="absolute top-0 left-0 bg-red-500 text-[12px] text-white text-center font-semibold rounded-md m-1 px-2 py-1">Event Type: {{ event.category.get_category_name_display }}</span>
               <span class="absolute top-7 left-0 bg-red-500 text-[12px] text-white text-center font-semibold rounded-md m-1 px-2 py-1">{{ event.total_participants }} People are Joining</span>
               <span class="absolute w-[3px] h-[40px] bg-red-500 -bottom-4 left-1/2 z-10"></span>
-              <span class="text-center text-white text-sm font-medium absolute bottom-10 z-20 left-1/2 -translate-x-1/2">{{ event.date|date:"F j Y" }}, <br> {{ event.time }} PM</span>
+              <span class="text-center text-white text-sm font-medium absolute bottom-10 z-20 left-1/2 -translate-x-1/2">{{ event.date|date:"F j Y" }}, <br> {{ event.time }}</span>
               <img class="mx-auto" src="{% static "images/event_1.jpg" %}" alt="">
               <!-- Top Shadow Overlay -->
               <div class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/60 to-transparent"></div>
