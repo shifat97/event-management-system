@@ -4,7 +4,7 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
     path('create-event/', create_event, name="create-event"),
-    path('update-event/', update_event, name="update-event"),
+    path('update-event/<int:id>', update_event, name="update-event"),
     path('view-all-events/', view_events, name='view-events'),
     path('view-event-details/<int:id>/', view_event_details, name="view-event-details"),
     path('register-participant/', create_perticipant, name="register-participant"),

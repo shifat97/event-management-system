@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from events.forms import EventModelForm, CategoryModelForm, ParticipantModelForm
-from events.models import Event
+from events.models import Event, Category
 from django.contrib import messages
 from django.db.models import Count
 
@@ -40,8 +40,38 @@ def create_event(request):
 
     return render(request, 'pages/create-event.html', context=context)
 
-def update_event():
-    pass
+def update_event(request, id):
+    event = Event.objects.get(id=id)
+    event_form = EventModelForm(instance=event)
+
+    try:
+        event_category = event.category
+    except Category.DoesNotExist:
+        event_category = None
+    
+    category_form = CategoryModelForm(instance=event_category)
+
+    if request.method == 'POST':
+        event_form = EventModelForm(request.POST, instance=event)
+        category_form = CategoryModelForm(request.POST, instance=event_category)
+
+        if event_form.is_valid() and category_form.is_valid():
+            saved_category = category_form.save()
+
+            updated_event = event_form.save(commit=False)
+            updated_event.category = saved_category
+            updated_event.save()
+
+            messages.success(request, "Event updated successfully!")
+
+        else:
+            messages.error(request, "Something went wrong! Try again later")
+    
+    return render(request, 'pages/update-event.html', {
+        'event_form': event_form,
+        'category_form': category_form,
+        'event': event,
+    })
 
 def view_events(request):
     events = Event.objects.select_related('category').prefetch_related('registered_event').annotate(total_participants=Count('registered_event')).all()

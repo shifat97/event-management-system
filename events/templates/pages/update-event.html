@@ -1,4 +1,4 @@
-{% extends "index.html" %} 
+{% extends "index.html" %}
 
 {% block templates %}
   <div>
@@ -11,7 +11,18 @@
             bg-green-400
           {% else %}
             bg-red-400
-          {% endif %} text-white p-4 rounded-md text-center font-bold text-xl">{{ message }}</p>
+          {% endif %} text-white p-4 rounded-md text-center font-bold text-xl w-full">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div>
+      {% if messages %}
+        {% for message in messages %}
+        <a 
+          class="{% if message.tags == 'success' %} block {% else %} hidden {% endif %} w-full text-center mt-6 p-2 bg-orange-300 rounded-md" 
+          href="{% url 'view-event-details' event.id %}">
+          Check Updated Details
+        </a>
         {% endfor %}
       {% endif %}
     </div>
@@ -48,7 +59,7 @@
             class="bg-green-400 hover:bg-green-700 text-white px-4 py-4 rounded-md mt-2"
             type="submit"
           >
-            Submit
+            Update
           </button>
       </form>
      </div>
