@@ -56,6 +56,7 @@ def view_event_details(request, id):
         .filter(date=event.date)
         .exclude(id=event.id)
         .select_related('category')
+        .prefetch_related('registered_event')
     )
 
     print(event.date)
