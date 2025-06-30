@@ -4,7 +4,7 @@ from django.db import models
 class Participant(models.Model):
     participant_name = models.CharField(max_length=100, null=False)
     participant_email = models.EmailField(null=False)
-    registered_event = models.ManyToManyField("Event", related_name="event")
+    registered_event = models.ManyToManyField("Event", related_name="registered_event")
 
 class Category(models.Model):
     NOT_MENTIONED = "SELECT CATEGORY"

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from events.forms import EventModelForm, CategoryModelForm, ParticipantModelForm
 from events.models import Event
 from django.contrib import messages
+from django.db.models import Count
 
 # Create your views here.
 
@@ -40,7 +41,7 @@ def update_event():
     pass
 
 def view_events(request):
-    events = Event.objects.prefetch_related().all()
+    events = Event.objects.select_related('category').prefetch_related('registered_event').annotate(total_participants=Count('registered_event')).all()
 
     return render(request, 'pages/view-all-events.html', context={
         'events': events,
