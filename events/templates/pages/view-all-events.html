@@ -5,6 +5,13 @@
   <section>
     {% comment %} Event banner design {% endcomment %}
     {% comment %} Filtering Options {% endcomment %}
+    <form action="{% url 'view-events' %}">
+      <select class="bg-black/5 px-4 py-4 rounded-md border-r-8 border-transparent mb-8" name="type" id="event-filter" onchange="this.form.submit()">
+        <option value="today" {% if request.GET.type == "today" %}selected{% endif %}>Today</option>
+        <option value="upcoming" {% if request.GET.type == "upcoming" %}selected{% endif %}>Upcoming</option>
+        <option value="past" {% if request.GET.type == "past" %}selected{% endif %}>Past</option>
+      </select>      
+    </form>
     {% comment %} Events Card {% endcomment %}
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12">
       {% for event in events %}

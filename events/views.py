@@ -107,7 +107,18 @@ def update_event(request, id):
     })
 
 def view_events(request):
-    events = Event.objects.select_related('category').prefetch_related('registered_event').annotate(total_participants=Count('registered_event')).all()
+    type = request.GET.get('type', '')
+    
+    BASE_QUERY = Event.objects.select_related('category').prefetch_related('registered_event').annotate(total_participants=Count('registered_event'))
+
+    if type == 'today':
+        events = BASE_QUERY.filter(date=timezone.now().date())
+    elif type == 'upcoming':
+        events = BASE_QUERY.filter(category__category_name='UPCOMING')
+    elif type == 'past':
+        events = BASE_QUERY.filter(category__category_name='PAST')
+    else:
+        events = BASE_QUERY.all()
 
     return render(request, 'pages/view-all-events.html', context={
         'events': events,
