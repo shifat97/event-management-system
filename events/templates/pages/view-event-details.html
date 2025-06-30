@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block templates %}
+  <div class="flex flex-col md:flex-row justify-between gap-12">
+    {% comment %} Event Details {% endcomment %}
+    <div>
+      <img class="rounded-md w-full" src="{% static "images/details.jpg" %}" alt="">
+      <h1 class="my-6 text-2xl font-bold">{{ event.name }}</h1>
+      <p class="flex gap-3 mt-2">
+        <span><img src="{% static 'images/calender.png' %}" alt=""></span>
+        <span class="text-[12px] text-[#222222] font-semibold"> {{event.date}}, {{ event.time }}</span>
+      </p>
+      <p class="flex gap-3 items-center mt-3">
+        <span><img src="{% static 'images/location.png' %}" alt=""></span>
+        <span class="text-[12px] text-[#222222] font-semibold">{{ event.location }}</span>
+      </p>
+      <p class="mt-6 text-black/70 text-sm">
+        {{ event.description }}
+      </p>
+    </div>
+    {% comment %} Similar Date Events {% endcomment %}
+    <div>
+      <h1 class="mb-6 font-bold text-xl uppercase">Events on the Same Date</h1>
+      <div class="grid grid-cols-1 gap-4">
+        {% for event in similar_events %}
+          {% if event %}
+            <div class="flex gap-4 border p-2 rounded-md">
+              <div>
+                <img width="90" height="40" src="{% static "images/similar.jpg" %}" alt="">
+              </div>
+              <div>
+                <p class="text-sm font-medium">{{ event.name }}</p>
+                <p class="text-red-500 text-[12px] font-bold">{{ event.date }}</p>
+              </div>
+            </div>
+          {% endif %}
+          {% empty %}
+            <p class="bg-black/10 border p-2 text-center rounded-md w-full">No other events on this day.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock templates %}
+

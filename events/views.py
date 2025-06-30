@@ -47,6 +47,26 @@ def view_events(request):
         'events': events,
     })
 
+# Event details
+def view_event_details(request, id):
+    event = Event.objects.get(id=id)
+
+    similar_events = (
+        Event.objects
+        .filter(date=event.date)
+        .exclude(id=event.id)
+        .select_related('category')
+    )
+
+    print(event.date)
+    print(Event.objects.filter(date=event.date).exclude(id=event.id).exists())
+
+
+    return render(request, 'pages/view-event-details.html', context={
+        'event': event,
+        'similar_events': similar_events,
+    })
+
 # Create Perticipant
 def create_perticipant(request):
     if request.method == 'POST':

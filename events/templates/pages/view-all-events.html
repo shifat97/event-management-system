@@ -8,7 +8,7 @@
     {% comment %} Events Card {% endcomment %}
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12">
       {% for event in events %}
-      <div>
+      <a href="{% url "view-event-details" event.id %}" class="cursor-pointer">
         <div class="relative">
             <span class="absolute top-0 left-0 bg-red-500 text-[12px] text-white text-center font-semibold rounded-md m-1 px-2 py-1">Event Type: {{ event.category.get_category_name_display }}</span>
             <span class="absolute top-7 left-0 bg-red-500 text-[12px] text-white text-center font-semibold rounded-md m-1 px-2 py-1">{{ event.total_participants }} People are Joining</span>
@@ -25,7 +25,7 @@
               <span class="text-[12px] text-[#222222] font-semibold">{{ event.location }}</span>
             </p>
           </div>
-      </div>
+      </a>
       {% endfor %}
     </div>
   </section>
