@@ -129,5 +129,20 @@ def view_participant(request):
 
     return render(request, 'pages/view-participants.html', {'participants': participants})
 
-def update_participant():
-    pass
+def update_participant(request, id):
+    participant = Participant.objects.get(id=id)
+
+    if request.method == 'POST':
+        participant_form = ParticipantModelForm(request.POST, instance=participant)
+
+        if participant_form.is_valid():
+            participant_form.save()
+            messages.success(request, 'Update successful')
+        else:
+            messages.error(request, 'Something went wrong! Try again later')
+    else:
+        participant_form = ParticipantModelForm(instance=participant)
+
+    return render(request, 'pages/update-participant.html', {
+        'participant_form': participant_form
+    })

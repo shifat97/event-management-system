@@ -10,5 +10,5 @@ urlpatterns = [
     path('delete-event/<int:id>', delete_event, name='delete-event'),
     path('register-participant/event-id=<int:id>', create_participant, name='register-participant'),
     path('view-participants/', view_participant, name='view-participants'),
-    path('update-participant/', update_participant, name='update-participant'),
+    path('update-participant/<int:id>', update_participant, name='update-participant'),
 ] + debug_toolbar_urls()
