@@ -90,19 +90,15 @@ def delete_event(request, id):
 
 # Event details
 def view_event_details(request, id):
-    event = Event.objects.get(id=id)
+    # event = Event.objects.get(id=id)
+    event = Event.objects.prefetch_related('registered_event').get(id=id)
 
     similar_events = (
         Event.objects
         .filter(date=event.date)
         .exclude(id=event.id)
         .select_related('category')
-        .prefetch_related('registered_event')
     )
-
-    print(event.date)
-    print(Event.objects.filter(date=event.date).exclude(id=event.id).exists())
-
 
     return render(request, 'pages/view-event-details.html', context={
         'event': event,
