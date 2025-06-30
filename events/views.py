@@ -3,9 +3,44 @@ from django.http import HttpResponse
 from events.forms import EventModelForm, CategoryModelForm, ParticipantModelForm
 from events.models import Event, Category, Participant
 from django.contrib import messages
-from django.db.models import Count
+from django.db.models import Count, Q
+from django.utils import timezone
 
 # Create your views here.
+
+def dashboard(request):
+    type = request.GET.get('type', '')
+    # events = Event.objects.prefetch_related('registered_event').all()
+
+    # Get Today's Events
+    today = timezone.now().date()
+    todays_events = Event.objects.filter(date=today)
+
+    counts = Event.objects.aggregate(
+        total_participant=Count('registered_event', distinct=True),
+        total_events=Count('id', distinct=True),
+        total_upcoming=Count('id', filter=Q(category__category_name='UPCOMING'), distinct=True),
+        total_past=Count('id', filter=Q(category__category_name='PAST'), distinct=True),
+    )
+
+    BASE_QUERY = Event.objects.select_related('category').all()
+
+    if type == 'upcoming':
+        events = BASE_QUERY.filter(category__category_name='UPCOMING')
+    elif type == 'past':
+        events = BASE_QUERY.filter(category__category_name='PAST')
+    elif type == 'total-event':
+        events = BASE_QUERY.all()
+    else:
+        events = todays_events
+        
+
+    context = {
+        "counts": counts,
+        'events': events,
+    }
+
+    return render(request, 'pages/dashboard.html', context=context)
 
 # Create event
 def create_event(request):
@@ -105,8 +140,6 @@ def view_event_details(request, id):
     })
 
 # Create Perticipant
-from django.db.models import Q
-
 def create_participant(request, id):
     event = Event.objects.get(id=id)
 
@@ -133,7 +166,6 @@ def create_participant(request, id):
         'participant_form': participant_form,
         'event': event,
     })
-
 
 def view_participant(request):
     participants = Participant.objects.prefetch_related('registered_event').all()

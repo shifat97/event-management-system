@@ -11,7 +11,9 @@
       <a href="{% url "home" %}">
         <li class="font-bold text-[15px] p-2 hover:text-red-500 rounded-sm cursor-pointer">Home</li>
       </a>
-      <li class="font-bold text-[15px] p-2 hover:text-red-500 rounded-sm cursor-pointer">Dashboard</li>
+      <a href="{% url "dashboard" %}">
+        <li class="font-bold text-[15px] p-2 hover:text-red-500 rounded-sm cursor-pointer">Dashboard</li>
+      </a>
       <a href="{% url "view-events" %}">
         <li class="font-bold text-[15px] p-2 hover:text-red-500 rounded-sm cursor-pointer">All Events</li>
       </a>
