@@ -7,7 +7,13 @@
       {% comment %} Event Details {% endcomment %}
       <div class="md:w-[70%] bg-[#f7f7f7] p-6 rounded-md">
         <img class="rounded-md w-full" src="{% static "images/details.jpg" %}" alt="">
-        <h1 class="my-6 text-2xl font-bold">{{ event.name }}</h1>
+        <div class="flex justify-between items-center">
+          <h1 class="my-6 text-2xl font-bold">{{ event.name }}</h1>
+          <form method="POST" action="{% url 'register-participant' event.id %}">
+            {% csrf_token %}
+            <button type="submit" class="bg-green-400 hover:bg-green-700 cursor-pointer px-4 py-2 rounded-md">Register</button>
+          </form>
+        </div>
         <p class="flex gap-3 mt-2">
           <span><img src="{% static 'images/calender.png' %}" alt=""></span>
           <span class="text-[12px] text-[#222222] font-semibold"> {{event.date}}, {{ event.time }}</span>

@@ -15,10 +15,12 @@
       <a href="{% url "view-events" %}">
         <li class="font-bold text-[15px] p-2 hover:text-red-500 rounded-sm cursor-pointer">All Events</li>
       </a>
+      <a href="">
+        <li class="font-bold text-[15px] p-2 hover:text-red-500 rounded-sm cursor-pointer">All Participant</li>
+      </a>
       <a href="{% url 'create-event' %}">
         <li class="font-bold text-[15px] p-2 hover:text-red-500 rounded-sm cursor-pointer">Create Event</li>
       </a>
-      <li class="font-bold text-[15px] p-2 hover:text-red-500 rounded-sm cursor-pointer">Contact</li>
     </ul>
     <form class="">
       <input class="w-[400px] bg-black/5 p-4 rounded-md focus:border-none focus:outline-none" type="text" name="search" id="search" placeholder="Enter event name or type">

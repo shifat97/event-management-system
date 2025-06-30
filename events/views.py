@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from events.forms import EventModelForm, CategoryModelForm, ParticipantModelForm
-from events.models import Event, Category
+from events.models import Event, Category, Participant
 from django.contrib import messages
 from django.db.models import Count
 
@@ -106,21 +106,26 @@ def view_event_details(request, id):
     })
 
 # Create Perticipant
-def create_perticipant(request):
-    if request.method == 'POST':
-        participant_model_form = ParticipantModelForm(request.POST)
+def create_participant(request, id):
+    event = Event.objects.get(id=id)
 
-        if participant_model_form.is_valid():
-            participant_model_form.save();
-            messages.success(request, 'Registration Successful')
+    if request.method == 'POST':
+        participant_form = ParticipantModelForm(request.POST)
+        if participant_form.is_valid():
+            participant = participant_form.save() 
+            participant.registered_event.add(event) 
             
-            return redirect('create-participant')
+            messages.success(request, 'Registration Successful!')
     else:
-        participant_model_form = ParticipantModelForm()
-    
+        participant_form = ParticipantModelForm()
+
     return render(request, 'pages/create-participant.html', {
-        'participant_form': participant_model_form
+        'participant_form': participant_form,
+        'event': event,
     })
 
-def update_perticipant():
+# def view_participant(request, id):
+#     participant = Participant.objects.prefetch_related('')
+
+def update_participant():
     pass
