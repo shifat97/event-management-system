@@ -5,27 +5,39 @@
   <section>
     {% comment %} Event banner design {% endcomment %}
     {% comment %} Filtering Options {% endcomment %}
-    <div class="mb-8">
-      <p class="inline mr-4 font-bold">SORT BY</p>
-
-      <form class="inline" action="{% url 'view-events' %}">
-        <select class="text-sm bg-black/5 px-4 py-4 text-md rounded-md border-r-8 border-transparent" name="type" id="event-filter" onchange="this.form.submit()">
-          <option value="all" {% if request.GET.type == "all" %}selected{% endif %}>All</option>
-          <option value="today" {% if request.GET.type == "today" %}selected{% endif %}>Today</option>
-          <option value="upcoming" {% if request.GET.type == "upcoming" %}selected{% endif %}>Upcoming</option>
-          <option value="past" {% if request.GET.type == "past" %}selected{% endif %}>Past</option>
-        </select>
-      </form>
-      
-      <p class="inline mx-4 font-bold">OR</p>
-
-      <form class="inline" action="{% url 'view-events' %}">
-        <!-- Date range filters -->
-        <input class="bg-black/5 px-4 py-4 rounded-md text-sm" type="date" name="start_date" value="{{ request.GET.start_date }}" class="px-4 py-2 rounded-md border mb-4" required />
-        <input class="bg-black/5 px-4 py-4 rounded-md text-sm" type="date" name="end_date" value="{{ request.GET.end_date }}" class="px-4 py-2 rounded-md border mb-4" required />
-
-        <button type="submit" class="px-6 py-4 text-sm font-bold bg-blue-400 hover:bg-blue-600 text-white rounded-md ml-4">Filter</button>
-      </form>
+    <div class="flex flex-col lg:flex-row justify-between lg:items-end">
+      <div class="mb-8">
+        <p class="font-bold mb-2">SORT BY</p>
+  
+        <form class="inline" action="{% url 'view-events' %}">
+          <select class="text-sm bg-black/5 px-4 py-4 text-md rounded-md border-r-8 border-transparent w-full lg:w-auto" name="type" id="event-filter" onchange="this.form.submit()">
+            <option value="all" {% if request.GET.type == "all" %}selected{% endif %}>All</option>
+            <option value="today" {% if request.GET.type == "today" %}selected{% endif %}>Today</option>
+            <option value="upcoming" {% if request.GET.type == "upcoming" %}selected{% endif %}>Upcoming</option>
+            <option value="past" {% if request.GET.type == "past" %}selected{% endif %}>Past</option>
+          </select>
+        </form>
+        
+        <p class="mt-4 font-bold">OR</p>
+  
+        <form class="flex flex-col gap-2 lg:flex-row lg:items-center mt-2" action="{% url 'view-events' %}">
+          <!-- Date range filters -->
+          <label class="font-bold" for="start_date">Start Date:</label>
+          <input class="bg-black/5 px-4 py-4 rounded-md text-sm" type="date" name="start_date" value="{{ request.GET.start_date }}" class="px-4 py-2 rounded-md border mb-4" required />
+          <label class="font-bold" for="end_date">End Date:</label>
+          <input class="bg-black/5 px-4 py-4 rounded-md text-sm" type="date" name="end_date" value="{{ request.GET.end_date }}" class="px-4 py-2 rounded-md border mb-4" required />
+  
+          <button type="submit" class="px-6 py-4 text-sm font-bold bg-blue-400 hover:bg-blue-600 text-white rounded-md">Filter</button>
+        </form>
+      </div>
+  
+      <div class="mb-8">
+        <form class="relative" action="{% url 'view-events' %}">
+          <input class="w-full lg:w-[400px] bg-black/5 p-4 rounded-md focus:border-none focus:outline-none" type="text"
+          name="search" placeholder="Search by name or location" value="{{ request.GET.search }}">
+          <button type="submit" class="px-4 py-4 bg-blue-400 hover:bg-blue-600 text-white rounded-md absolute right-0">Search</button>
+        </form>
+      </div>
     </div>
 
     {% comment %} Events Card {% endcomment %}

@@ -111,6 +111,8 @@ def view_events(request):
 
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
+
+    search_query = request.GET.get('search', '').strip()
     
     BASE_QUERY = Event.objects.select_related('category').prefetch_related('registered_event').annotate(total_participants=Count('registered_event'))
 
@@ -125,6 +127,12 @@ def view_events(request):
 
     if start_date and end_date:
         events = BASE_QUERY.filter(date__gte=start_date, date__lte=end_date)
+
+    if search_query:
+        events = BASE_QUERY.filter(
+            Q(name__icontains=search_query) |
+            Q(location__icontains=search_query)
+        )
 
     return render(request, 'pages/view-all-events.html', context={
         'events': events,
