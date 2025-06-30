@@ -7,6 +7,7 @@
     {% comment %} Filtering Options {% endcomment %}
     <form action="{% url 'view-events' %}">
       <select class="bg-black/5 px-4 py-4 rounded-md border-r-8 border-transparent mb-8" name="type" id="event-filter" onchange="this.form.submit()">
+        <option value="all" {% if request.GET.type == "all" %}selected{% endif %}>All</option>
         <option value="today" {% if request.GET.type == "today" %}selected{% endif %}>Today</option>
         <option value="upcoming" {% if request.GET.type == "upcoming" %}selected{% endif %}>Upcoming</option>
         <option value="past" {% if request.GET.type == "past" %}selected{% endif %}>Past</option>
