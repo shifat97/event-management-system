@@ -1,0 +1,51 @@
+{% extends "index.html" %} 
+
+{% block events %}
+  <div>
+    {% comment %} Messages container {% endcomment %}
+    <div>
+      {% if messages %}
+        {% for message in messages %}
+          <p class="bg-green-400 text-white m-4 p-4 rounded-md text-center font-bold text-xl">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% comment %} Form container {% endcomment %}
+     <div>
+       <h1 class="text-2xl font-semibold text-center leading-relaxed my-12">CREATE A EVENT</h1>
+       <form method="POST" class="w-1/2 mx-auto flex flex-col gap-4 ">
+        {% csrf_token %}
+        <div class="w-full flex flex-col gap-2">
+          <p class="font-medium leading-relaxed">Event Name:</p>
+          {{ event_form.name }}
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="font-medium leading-relaxed">Select Event Date:</p>
+          {{ event_form.date }}
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="font-medium leading-relaxed">Event Time:</p>
+          {{ event_form.time }}
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="font-medium leading-relaxed">Location:</p>
+          {{ event_form.location }}
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="font-medium leading-relaxed">Category:</p>
+          {{ category_form.category_name }}
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="font-medium leading-relaxed">Describe the Event:</p>
+          {{ event_form.description }}
+        </div>
+        <button
+            class="bg-green-400 hover:bg-green-700 text-white px-4 py-4 rounded-md mt-2"
+            type="submit"
+          >
+            Submit
+          </button>
+      </form>
+     </div>
+  </div>
+{% endblock events %}
