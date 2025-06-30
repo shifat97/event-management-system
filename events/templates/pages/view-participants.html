@@ -1,0 +1,79 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block templates %}
+  <section>
+    <div class="relative overflow-x-auto">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3">
+              Participant Name
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Email
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Registered Event
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Event Time
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Update / Delete
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in participants %}
+            <tr class="bg-white border-b border-gray-200">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  {{ p.participant_name }}
+              </th>
+              <td class="px-6 py-4">
+                  {{ p.participant_email }}
+              </td>
+              <td class="px-6 py-4">
+                {% for event in p.registered_event.all %}
+                    <li>
+                      {{ event.name }}
+                    </li>
+                {% empty %}
+                    No events registered
+                {% endfor %}
+              </td>
+              <td class="px-6 py-4">
+                {% for event in p.registered_event.all %}
+                    <li>
+                      {{ event.date }}, {{ event.time }}
+                    </li>
+                {% empty %}
+                    No events registered
+                {% endfor %}
+              </td>
+              <td>
+                <div class="flex items-center gap-3 justify-center">
+                  <a href="" class="bg-green-400 cursor-pointer p-2 rounded-full">
+                    <img class="w-[20px] h-[20px]" src="{% static "images/edit.png" %}" alt="">
+                  </a>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-red-400 rounded-full cursor-pointer p-2">
+                      <img class="w-[20px] h-[20px]" src="{% static "images/delete.png" %}" alt="">
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="2" class="px-6 py-4 text-center text-gray-500">
+                  No participants are joining this event.
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock templates %}

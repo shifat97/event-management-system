@@ -114,7 +114,7 @@ def create_participant(request, id):
         if participant_form.is_valid():
             participant = participant_form.save() 
             participant.registered_event.add(event) 
-            
+
             messages.success(request, 'Registration Successful!')
     else:
         participant_form = ParticipantModelForm()
@@ -124,8 +124,10 @@ def create_participant(request, id):
         'event': event,
     })
 
-# def view_participant(request, id):
-#     participant = Participant.objects.prefetch_related('')
+def view_participant(request):
+    participants = Participant.objects.prefetch_related('registered_event').all()
+
+    return render(request, 'pages/view-participants.html', {'participants': participants})
 
 def update_participant():
     pass
