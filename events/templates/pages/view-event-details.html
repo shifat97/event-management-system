@@ -32,15 +32,17 @@
         <div class="grid grid-cols-1 gap-4">
           {% for event in similar_events %}
             {% if event %}
-              <div class="flex gap-4 border p-2 rounded-md">
-                <div>
-                  <img width="90" height="40" src="{% static "images/similar.jpg" %}" alt="">
+              <a href="{% url "view-event-details" event.id %}">
+                <div class="flex gap-4 border p-2 rounded-md">
+                  <div>
+                    <img width="90" height="40" src="{% static "images/similar.jpg" %}" alt="">
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium">{{ event.name }}</p>
+                    <p class="text-red-500 text-[12px] font-bold">{{ event.date }}</p>
+                  </div>
                 </div>
-                <div>
-                  <p class="text-sm font-medium">{{ event.name }}</p>
-                  <p class="text-red-500 text-[12px] font-bold">{{ event.date }}</p>
-                </div>
-              </div>
+              </a>
             {% endif %}
             {% empty %}
               <p class="bg-red-100 p-2 text-center rounded-md w-full">No other events on this day.</p>
