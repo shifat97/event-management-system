@@ -9,6 +9,19 @@
 </head>
 <body>
   {% include "header.html" %}
-  <h1>Home</h1>
+  <main class="max-w-[1170px] mx-auto p-6">
+    <section id="hero" class="relative">
+      {% comment %} Top shadow overlay {% endcomment %}
+      <div class="absolute inset-0 h-full bg-gradient-to-t from-black/60 to-black/60"></div>
+      <img width="100%" src="{% static "images/banner.jpg" %}" alt="" srcset="">
+      <div  class="flex flex-col justify-center items-center gap-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <h1 class="text-white text-center w-full lg:max-w-1/2 font-bold uppercase text-3xl md:text-4xl" class="">celebrate your eventsthat lasts longer</h1>
+        <div class="text-white">
+          <a href="{% url 'view-events' %}">Show Event</a>
+          <a href="{% url 'create-event' %}">Create Event</a>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
