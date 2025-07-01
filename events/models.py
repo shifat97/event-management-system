@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 class Participant(models.Model):
@@ -23,7 +24,7 @@ class Category(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=100, null=False)
     description = models.TextField(null=False)
-    date = models.DateField(blank=False, null=False)
+    date = models.DateField(default=datetime.date.today, blank=False, null=False)
     time = models.CharField(max_length=50, blank=False, null=False)
     location = models.CharField(max_length=100, null=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="category")
