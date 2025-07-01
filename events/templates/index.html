@@ -7,9 +7,9 @@
     <title>Event Management System</title>
     <link rel="stylesheet" href="{% static 'css/output.css' %}" />
   </head>
-  <body>
+  <body class="min-h-screen relative">
     {% include "header.html" %}
-    <main class="max-w-[1170px] mx-auto p-6">
+    <main class="max-w-[1170px] mx-auto py-6">
       {% block templates %}{% endblock templates %}
     </main>
     {% include "footer.html" %}

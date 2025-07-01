@@ -14,7 +14,7 @@
       {% comment %} Top shadow overlay {% endcomment %}
       <div class="absolute inset-0 h-full bg-gradient-to-t from-black/60 to-black/60"></div>
       <img width="100%" class="rounded-md" src="{% static "images/banner.jpg" %}" alt="" srcset="">
-      <div  class="flex flex-col justify-center items-center gap-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div class="hidden lg:flex justify-center items-center gap-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <h1 class="text-white text-center w-full lg:max-w-1/2 font-bold uppercase text-3xl md:text-4xl leading-relaxed" class="">celebrate your eventsthat lasts longer</h1>
         <div class="text-white flex flex-col md:flex-row gap-2">
           <a class="bg-green-500 hover:bg-green-700 border-none rounded-md px-4 py-2" href="{% url 'view-events' %}">Show Event</a>
@@ -22,6 +22,13 @@
         </div>
       </div>
     </section>
+    <div class="lg:hidden flex flex-col justify-center items-center gap-6 mt-4">
+      <h1 class="text-black text-center w-full lg:max-w-1/2 font-bold uppercase text-3xl md:text-4xl leading-relaxed" class="">celebrate your eventsthat lasts longer</h1>
+      <div class="text-white flex gap-2">
+        <a class="bg-green-500 hover:bg-green-700 border-none rounded-md px-4 py-2" href="{% url 'view-events' %}">Show Event</a>
+        <a class="bg-white hover:bg-black border-2 border-black hover:text-white text-black rounded-md px-4 py-2" href="{% url 'create-event' %}">Create Event</a>
+      </div>
+    </div>
   </main>
   {% include "footer.html" %}
 </body>
