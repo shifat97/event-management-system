@@ -31,18 +31,25 @@ A dynamic and responsive web application for managing events efficiently. Users 
 
 ## 🖼️ Screenshots
 
-| Dashboard                   | Event List                   | Registration Form                |
-| --------------------------- | ---------------------------- | -------------------------------- |
-| ![](./images/dashboard.png) | ![](./images/all-events.png) | ![](./images/register-event.png) |
+| Dashboard                   | Event List                   | Event Details                   |
+| --------------------------- | ---------------------------- | ------------------------------- |
+| ![](./images/dashboard.png) | ![](./images/all-events.png) | ![](./images/event-details.png) |
+
+| Create Event                   | Update Event                   | Registration Form                |
+| ------------------------------ | ------------------------------ | -------------------------------- |
+| ![](./images/create-event.png) | ![](./images/update-event.png) | ![](./images/register-event.png) |
+
+| View Participant                    |
+| ----------------------------------- |
+| ![](./images/view-participants.png) |
 
 ---
 
 ## 🚀 Tech Stack
 
-- **Frontend:** HTML, CSS, JavaScript (or React/Vue if used)
-- **Backend:** Django / Express / Spring Boot (replace with yours)
-- **Database:** MySQL / PostgreSQL / MongoDB (replace with yours)
-- **Authentication:** Django Auth / JWT / OAuth (if applicable)
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** Python, Django
+- **Database:** PostgreSQL
 
 ---
 
@@ -50,8 +57,8 @@ A dynamic and responsive web application for managing events efficiently. Users 
 
 ### Prerequisites
 
-- Python / Node / Java installed (choose yours)
-- MySQL / PostgreSQL set up
+- Python installed
+- PostgreSQL set up
 - Virtualenv or relevant package manager
 
 ### Installation
